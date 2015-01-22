@@ -1,6 +1,6 @@
 /*
  SMS receiver
- YOOOO
+ YOOOO Mojo ho ho ho
 
  This sketch, for the Arduino GSM shield, waits for a SMS message
  and displays it through the Serial port.
