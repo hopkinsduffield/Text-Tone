@@ -1,12 +1,9 @@
 /*
  SMS receiver
-TESTESTES
+ YOOOO Mojo
+
  This sketch, for the Arduino GSM shield, waits for a SMS message
  and displays it through the Serial port.
-
- Circuit:
- * GSM shield attached to and Arduino
- * SIM card that can receive SMS messages
 
  created 25 Feb 2012
  by Javier Zorzano / TD
@@ -25,14 +22,10 @@ TESTESTES
 
 // initialize the library instances
 GSM gsmAccess;
-GSM_SMS sms;
-GSM_SMS smsOut;
+GSM_SMS sms; // Store receiving SMS
+GSM_SMS smsOut; // Store sending SMS
 
-
-// Array to hold the number a SMS is retreived from
-char senderNumber[20];
-
-int x = 1;
+char senderNumber[20];// Array to hold the number a SMS is retreived from
 
 void setup()
 {
@@ -58,31 +51,23 @@ void setup()
       delay(1000);
     }
   }
-  if (sms.available())
-  {
-  //Clear all text messages 
-  sms.flush();
-  smsOut.flush();
-  }
   Serial.println("GSM initialized");
-  Serial.println("Waiting for messages");
+  Serial.println("Waiting for messages");  
 }
 
 void loop()
 {
   char c;
-  char txtMsg[ ] = "Thank you for trying TEST - TONE. Your message will play shortly *beep beep boop boop beep beep* :)";
+  //Set to char length when determined final message.
+//  char txtMsg[ ] = "Thank you for trying TEST - TONE. Your message will play shortly *beep beep boop boop beep beep* :)";
   
-  // If there are any SMSs available()
+  // If there are any SMS's available()
   if (sms.available())
   {
-//    Serial.println("Message received from:");
-
     // Get remote number
     sms.remoteNumber(senderNumber, 20);
     Serial.print(senderNumber);
     Serial.print(" ");
-
     
     // An example of message disposal
     // Any messages starting with # should be discarded
@@ -97,23 +82,18 @@ void loop()
       Serial.print(c);
       Serial.println();
     
-    //Add Send SMS Stuff
-    delay(1000);
-    // send the message
-    smsOut.beginSMS(senderNumber);
-    smsOut.print(txtMsg);
-    smsOut.endSMS();
-//    Serial.println("\nCOMPLETE!\n");
+    delay(1000); // Add delay for processing
     
+//    // Add and send SMS to last caller
+//    smsOut.beginSMS(senderNumber); // Begin Message
+//    smsOut.print(txtMsg); //Add Text from Message
+//    smsOut.endSMS(); //End the Message
 
-    // Delete message from modem memory
-    sms.flush();
-    smsOut.flush();
-//    Serial.println("MESSAGE DELETED");
+    sms.flush();  // Delete incoming message from modem memory
+//    smsOut.flush(); // Delete sent message from modem memory
   }
-
-  delay(1000);
-
+  delay(1000); //Add delay for processing
 }
+
 
 
